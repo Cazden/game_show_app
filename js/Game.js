@@ -5,15 +5,15 @@ class Game {
     constructor() {
         this.missed = 0;
         this.phrases = [{
-            phrase: 'Hello World' 
+            content: 'Hello World' 
         }, {
-            phrase: 'Cherry Pie'
+            content: 'Cherry Pie'
         }, {
-            phrase: 'Alley Cat'
+            content: 'Alley Cat'
         }, {
-            phrase: 'Yellow Submarine'
+            content: 'Yellow Submarine'
         }, {
-            phrase: 'Kamehameha'
+            content: 'Kamehameha'
         }];
         this.activePhrase = null;
     }
