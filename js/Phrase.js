@@ -1,14 +1,15 @@
-/* Treehouse FSJS Techdegree
- * Project 4 - OOP Game App
- * Phrase.js */
 class Phrase {
     constructor(phrase) {
         this.phrase = phrase;
     }
 
+    /**
+     * Adds the active phrase to display as elements for DOM manipulation
+     */
     addPhraseToDisplay() {
         const ul = document.querySelector('#phrase ul');
         const currentPhrase = this.phrase.content;
+
         for(let i = 0; i < currentPhrase.length; i++) {
             const li = document.createElement('li');
 
@@ -23,11 +24,38 @@ class Phrase {
         }
     }
 
-    checkLetter() {
+    /**
+     * Checks to see if the letter passed in matches any letters in the active phrase
+     * @param {Object}          Letter to check for match
+     * @returns {Boolean}       Value to return whether the letter matches or not
+     */
+    checkLetter(letter) {
+        const currentPhrase = this.phrase.content;
 
+        for(let i = 0; i < currentPhrase.length; i++) {
+            if(currentPhrase[i] === letter.textContent) {
+                return true; // Match
+            }
+        }
     }
 
-    showMatchedLetter() {
+    /**
+     * Reveals matched letter(s) in the phrase display
+     * @param {Object}      Matching letter to reveal
+     */
+    showMatchedLetter(letter) {
+        const currentPhrase = this.phrase.content;
 
+        for(let i = 0; i < currentPhrase.length; i++) {
+            if(currentPhrase[i] === letter.textContent) {
+                const phraseLetters = document.querySelectorAll('#phrase ul li');
+                
+                phraseLetters.forEach(li => {
+                    if(li.textContent === letter.textContent) {
+                        li.className = 'show';
+                    }
+                });
+            }
+        }
     }
 }
