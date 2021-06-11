@@ -54,17 +54,70 @@ class Game {
         }
     }
 
+    /**
+     * Remove a life from the scoreboard and keep tally of incorrect guesses
+     * Handle game over interactions if out of guess attempts
+     */
     removeLife() {
-        // Removes a life from the scoreboard by replacing one of the liveHeart.png with lostHeart.png and increments the 'missed' property
-        // If the player has 5 missed guesses, call gameOver()
+        // Remove a life from the scoreboard
+        const tries = document.querySelectorAll('.tries');
+        tries[this.missed].firstElementChild.src = 'images/lostHeart.png';
+        this.missed += 1;
+
+        // If the player guesses incorrectly five times, end the game
+        if(this.missed >= 5) {
+            this.gameOver();
+        }
     }
 
     checkForWin() {
-        // Checks to see if the palyer has revealed all of the letters in the active phrase
+        // Checks to see if the player has revealed all of the letters in the active phrase
     }
 
+    /**
+     * Depending on outcome of game, updates overlay with a win or loss message
+     */
     gameOver() {
-        document.querySelector('#overlay').style.display = 'block';
-        // Depending on outcome of game, updates the H1 element with a win or loss message and replaces overlay's start CSS class with either 'win' or 'lose' CSS class
+        const overlay = document.querySelector('#overlay');
+        overlay.style.display = 'block';
+        const message = document.querySelector('#game-over-message');
+
+        // Determine game over message
+        if(this.missed >= 5) {
+            overlay.className = 'lose';
+            message.textContent = `Bummer! You ran out of guesses. 
+                                   Press Start Game to try again.`;
+        } else {
+            overlay.className = 'win';
+            message.textContent = `Congratulations, you win!
+                                   Want to play again? Press Start Game!`;
+        }
+
+        // Reset game board
+        this.resetGame();
+    }
+
+    /**
+     * Resets the game board, including phrase display, key elements and scoreboard
+     */
+    resetGame() {
+        // Clear all phrase letter elements
+        document.querySelector('#phrase ul').innerHTML = '';
+
+        // Reset all key elements
+        const keys = document.querySelectorAll('#qwerty button');
+        console.log(keys);
+        for(let i = 0; i < keys.length; i++) {
+            keys[i].disabled = false;
+            keys[i].className = 'key';
+        }
+        console.log(keys);
+        
+        // Reset hearts/scoreboard
+        const tries = document.querySelectorAll('.tries');
+        for(let i = 0; i < tries.length; i++) {
+            tries[i].firstElementChild.src = 'images/liveHeart.png';
+        }
+        this.missed = 0;
     }
 }
