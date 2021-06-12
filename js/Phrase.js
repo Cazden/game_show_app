@@ -33,7 +33,7 @@ class Phrase {
         const currentPhrase = this.phrase.content;
 
         for(let i = 0; i < currentPhrase.length; i++) {
-            if(currentPhrase[i] === letter.textContent) {
+            if(currentPhrase[i].toLowerCase() === letter.textContent) {
                 return true; // Match
             }
         }
@@ -47,11 +47,11 @@ class Phrase {
         const currentPhrase = this.phrase.content;
 
         for(let i = 0; i < currentPhrase.length; i++) {
-            if(currentPhrase[i] === letter.textContent) {
+            if(currentPhrase[i].toLowerCase() === letter.textContent) {
                 const phraseLetters = document.querySelectorAll('#phrase ul li');
                 
                 phraseLetters.forEach(li => {
-                    if(li.textContent === letter.textContent) {
+                    if(li.textContent.toLowerCase() === letter.textContent) {
                         li.className = 'show';
                     }
                 });
