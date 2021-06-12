@@ -70,8 +70,27 @@ class Game {
         }
     }
 
+    /**
+     * Checks to see if the player has revealed all of the letters in the active phrase
+     */
     checkForWin() {
-        // Checks to see if the player has revealed all of the letters in the active phrase
+        let correctGuesses = 0;
+        const phraseCharacters = document.querySelectorAll('#phrase ul li');
+
+        for(let i = 0; i < phraseCharacters.length; i++) {
+            // 'space' should be factored in so correctGuesses properly tallies to length of array
+            if(phraseCharacters[i].className === 'show'
+            || phraseCharacters[i].className === 'space') {
+                correctGuesses++;
+                
+                // Compare the correct number of guesses with length of phrase
+                if(correctGuesses === phraseCharacters.length)
+                {
+                    return true; // Win
+                }
+            }
+        }
+        return false; // Continue game
     }
 
     /**
@@ -85,12 +104,12 @@ class Game {
         // Determine game over message
         if(this.missed >= 5) {
             overlay.className = 'lose';
-            message.textContent = `Bummer! You ran out of guesses. 
-                                   Press Start Game to try again.`;
+            message.innerHTML = `<br>Bummer! You ran out of guesses.</br>
+                                 <br>Want to try again?</br>`;
         } else {
             overlay.className = 'win';
-            message.textContent = `Congratulations, you win!
-                                   Want to play again? Press Start Game!`;
+            message.innerHTML = `<br>Congratulations, you guessed "${this.activePhrase.phrase.content}" correctly!</br>
+                                 <br>Want to play again?</br>`;
         }
 
         // Reset game board
@@ -111,7 +130,6 @@ class Game {
             keys[i].disabled = false;
             keys[i].className = 'key';
         }
-        console.log(keys);
         
         // Reset hearts/scoreboard
         const tries = document.querySelectorAll('.tries');
