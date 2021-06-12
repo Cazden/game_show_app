@@ -13,6 +13,7 @@ class Game {
             content: 'Kamehameha'
         }];
         this.activePhrase = null;
+        this.hasStarted = false;
     }
 
     /**
@@ -22,6 +23,7 @@ class Game {
         document.querySelector('#overlay').style.display = 'none';
         this.activePhrase = new Phrase(this.getRandomPhrase());
         this.activePhrase.addPhraseToDisplay();
+        this.hasStarted = true;
     }
 
     /**
@@ -34,9 +36,23 @@ class Game {
 
     /**
      * Handles user key interactions by checking for letter matches based on event handling and win/loss scenarios
-     * @param {Object}      Letter to check for match
+     * @param {Object || String}      Letter to check for match
      */
     handleInteraction(letter) {
+        
+        // If string value is passed in, convert to corresponding object with matching value
+        if(typeof(letter) === 'string') {
+
+            // Loop through all key buttons to convert key the string passed in to corresponding key object
+            const letterObjects = document.querySelectorAll('#qwerty button');
+            letterObjects.forEach(obj => {
+                if(obj.textContent === letter) {
+                    letter = obj;
+                }
+            });
+            
+        }
+
         letter.disabled = true;
         
         // Check if the selected letter matches any letters in the active phrase
@@ -83,7 +99,6 @@ class Game {
             || phraseCharacters[i].className === 'space') {
                 correctGuesses++;
                 
-                // Compare the correct number of guesses with length of phrase
                 if(correctGuesses === phraseCharacters.length)
                 {
                     return true; // Win
@@ -112,7 +127,6 @@ class Game {
                                  <br>Want to play again?</br>`;
         }
 
-        // Reset game board
         this.resetGame();
     }
 
@@ -120,12 +134,13 @@ class Game {
      * Resets the game board, including phrase display, key elements and scoreboard
      */
     resetGame() {
+        this.hasStarted = false;
+
         // Clear all phrase letter elements
         document.querySelector('#phrase ul').innerHTML = '';
 
         // Reset all key elements
         const keys = document.querySelectorAll('#qwerty button');
-        console.log(keys);
         for(let i = 0; i < keys.length; i++) {
             keys[i].disabled = false;
             keys[i].className = 'key';
@@ -137,5 +152,8 @@ class Game {
             tries[i].firstElementChild.src = 'images/liveHeart.png';
         }
         this.missed = 0;
+
+        // Reinitialize focus to start button
+        document.querySelector('#btn__reset').focus();
     }
 }
