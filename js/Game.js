@@ -50,23 +50,25 @@ class Game {
                     letter = obj;
                 }
             });
-            
         }
 
-        letter.disabled = true;
-        
-        // Check if the selected letter matches any letters in the active phrase
-        if(this.activePhrase.checkLetter(letter)) {
-            letter.className = 'chosen';
-            this.activePhrase.showMatchedLetter(letter);
-
-            // Check to see if all letters of the phrase have been guessed correctly
-            if(this.checkForWin()) {
-                this.gameOver();
+        // Make sure we're not working with strings like 'Alt', 'Shift', etc. passed in from key presses
+        if(/^[A-Z]$/i.test(letter.textContent)) {
+            letter.disabled = true;
+            
+            // Check if the selected letter matches any letters in the active phrase
+            if(this.activePhrase.checkLetter(letter)) {
+                letter.className = 'chosen';
+                this.activePhrase.showMatchedLetter(letter);
+    
+                // Check to see if all letters of the phrase have been guessed correctly
+                if(this.checkForWin()) {
+                    this.gameOver();
+                }
+            } else {
+                letter.className = 'wrong';
+                this.removeLife();
             }
-        } else {
-            letter.className = 'wrong';
-            this.removeLife();
         }
     }
 
