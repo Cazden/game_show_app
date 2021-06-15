@@ -20,7 +20,7 @@
 
 * {
   box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Consolas', monospace;
 }
 
 body {
@@ -60,9 +60,60 @@ button {
   cursor: pointer;
 }
 
+button:focus {
+  outline: none;
+  text-transform: uppercase;
+  font-weight: bolder;
+}
+
+button:hover {
+  outline: none;
+  text-transform: uppercase;
+  font-weight: bolder;
+}
+
 #btn__reset {
 	width: 200px;
 	margin: 0 auto;
+}
+
+#btn__reset:focus {
+  text-transform: none;
+  font-weight: normal;
+}
+
+#btn__reset:hover {
+  text-transform: none;
+  font-weight: normal;
+}
+
+/* Blinking effect credit: https://stackoverflow.com/questions/27038732/css-fade-in-out-blinking */
+.blink {
+    -webkit-animation: blink 2s infinite both;
+            animation: blink 2s infinite both;
+}
+
+@-webkit-keyframes blink {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0;
+  }
+}
+@keyframes blink {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0;
+  }
 }
 
 .main-container {
@@ -104,7 +155,7 @@ button {
 }
 
 .space {
-  width: 15px;
+  width: 65px;
 }
 
 

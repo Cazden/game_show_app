@@ -12,12 +12,10 @@ keyDiv.addEventListener('click', e => {
         game.handleInteraction(e.target);
     }
 });
-// Allows keyboard accessibility for selecting Key buttons
+
+// Allows keyboard accessibility for pressing Key buttons
 window.addEventListener('keydown', e => {
     if(game.hasStarted) {
         game.handleInteraction(e.key);
     }
 });
-
-// Loop through all buttons in kevDiv and add keydown handlers to each one that will pass into game.handleInteractions
-// Code handleInteraction to accept key codes and behave the same way as a click event (i.e. disable the key with the key code passed in)
