@@ -24,6 +24,8 @@ class Game {
         this.activePhrase = new Phrase(this.getRandomPhrase());
         this.activePhrase.addPhraseToDisplay();
         this.hasStarted = true;
+        const hearts = document.querySelectorAll('.tries');
+        hearts[this.missed].firstElementChild.className = 'blink';
     }
 
     /**
@@ -42,8 +44,6 @@ class Game {
         
         // If string value is passed in, convert to corresponding object with matching value
         if(typeof(letter) === 'string') {
-
-            // Loop through all key buttons to convert key the string passed in to corresponding key object
             const letterObjects = document.querySelectorAll('#qwerty button');
             letterObjects.forEach(obj => {
                 if(obj.textContent === letter) {
@@ -56,15 +56,14 @@ class Game {
         if(/^[A-Z]$/i.test(letter.textContent)) {
             letter.disabled = true;
             
-            // Check if the selected letter matches any letters in the active phrase
             if(this.activePhrase.checkLetter(letter)) {
                 letter.className = 'chosen';
                 this.activePhrase.showMatchedLetter(letter);
     
-                // Check to see if all letters of the phrase have been guessed correctly
                 if(this.checkForWin()) {
                     this.gameOver();
                 }
+                
             } else {
                 letter.className = 'wrong';
                 this.removeLife();
@@ -77,12 +76,17 @@ class Game {
      * Handle game over interactions if out of guess attempts
      */
     removeLife() {
-        // Remove a life from the scoreboard
         const tries = document.querySelectorAll('.tries');
         tries[this.missed].firstElementChild.src = 'images/lostHeart.png';
+        
+        // Remove blink effect from current heart, then add effect to next heart
+        if(this.missed < 4) {
+            tries[this.missed].firstElementChild.className = '';
+            tries[this.missed + 1].firstElementChild.className = 'blink';
+        }
+        
         this.missed += 1;
 
-        // If the player guesses incorrectly five times, end the game
         if(this.missed >= 5) {
             this.gameOver();
         }
@@ -152,6 +156,7 @@ class Game {
         const tries = document.querySelectorAll('.tries');
         for(let i = 0; i < tries.length; i++) {
             tries[i].firstElementChild.src = 'images/liveHeart.png';
+            tries[i].firstElementChild.className = '';
         }
         this.missed = 0;
 
