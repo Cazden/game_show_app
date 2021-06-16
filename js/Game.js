@@ -80,14 +80,14 @@ class Game {
         tries[this.missed].firstElementChild.src = 'images/lostHeart.png';
         
         // Remove blink effect from current heart, then add effect to next heart
-        if(this.missed < 4) {
+        if(this.missed < tries.length - 1) {
             tries[this.missed].firstElementChild.className = '';
             tries[this.missed + 1].firstElementChild.className = 'blink';
         }
         
         this.missed += 1;
 
-        if(this.missed >= 5) {
+        if(this.missed >= tries.length) {
             this.gameOver();
         }
     }
@@ -123,7 +123,7 @@ class Game {
         const message = document.querySelector('#game-over-message');
 
         // Determine game over message
-        if(this.missed >= 5) {
+        if(this.missed >= document.querySelectorAll('.tries').length) {
             overlay.className = 'lose';
             message.innerHTML = `<br>Bummer! You ran out of guesses.</br>
                                  <br>Want to try again?</br>`;
