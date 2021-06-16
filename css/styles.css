@@ -20,7 +20,7 @@
 
 * {
   box-sizing: border-box;
-  font-family: 'Consolas', monospace;
+  font-family: 'Comic Sans MT', 'Comic Sans', cursive;
 }
 
 body {
@@ -51,6 +51,7 @@ button {
   border: 1px solid transparent;
   padding: .5rem 1rem;
   color: var(--color-keys);
+  font-family: 'Consolas', monospace;
   font-size: var(--font-size-medium);
   background-color: var(--color-keys-light);
   border-radius: 5px;
