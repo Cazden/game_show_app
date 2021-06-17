@@ -34,34 +34,36 @@ class Game {
 
     /**
      * Handles user key interactions by checking for letter matches based on event handling and win/loss scenarios
-     * @param {Object || String}      Letter to check for match
+     * @param {Object || String}      Key to check for match
      */
-    handleInteraction(letter) {
+    handleInteraction(key) {
         
         // If string value is passed in, convert to corresponding object with matching value
-        if(typeof(letter) === 'string') {
-            const letterObjects = document.querySelectorAll('#qwerty button');
-            letterObjects.forEach(obj => {
-                if(obj.textContent === letter) {
-                    letter = obj;
+        if(typeof(key) === 'string') {
+            const keyObjects = document.querySelectorAll('#qwerty button');
+            keyObjects.forEach(obj => {
+                if(obj.textContent === key) {
+                    key = obj;
                 }
             });
         }
 
+        const keyCode = key.textContent;
+
         // Make sure we're not working with strings like 'Alt', 'Shift', etc. passed in from key presses
-        if(/^[A-Z]$/i.test(letter.textContent)) {
-            letter.disabled = true;
+        if(/^[A-Z]$/i.test(keyCode)) {
+            key.disabled = true;
             
-            if(this.activePhrase.checkLetter(letter)) {
-                letter.className = 'chosen';
-                this.activePhrase.showMatchedLetter(letter);
+            if(this.activePhrase.checkLetter(keyCode)) {
+                key.className = 'chosen';
+                this.activePhrase.showMatchedLetter(keyCode);
     
                 if(this.checkForWin()) {
                     this.gameOver();
                 }
                 
             } else {
-                letter.className = 'wrong';
+                key.className = 'wrong';
                 this.removeLife();
             }
         }
