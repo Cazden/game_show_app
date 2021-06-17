@@ -127,7 +127,7 @@ class Game {
                                  <br>Want to try again?</br>`;
         } else {
             overlay.className = 'win';
-            message.innerHTML = `<br>Congratulations, you guessed "${this.activePhrase.phrase}" correctly!</br>
+            message.innerHTML = `<br>Congratulations, you guessed "${this.activePhrase.phrase.toUpperCase()}" correctly!</br>
                                  <br>Want to play again?</br>`;
         }
 
