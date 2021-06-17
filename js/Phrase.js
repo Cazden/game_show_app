@@ -1,6 +1,6 @@
 class Phrase {
     constructor(phrase) {
-        this.phrase = phrase;
+        this.phrase = phrase.toLowerCase();
     }
 
     /**
@@ -16,7 +16,7 @@ class Phrase {
             if(currentPhrase[i] === ' ') {
                 li.className = 'space';
             } else {
-                li.textContent = currentPhrase[i];
+                li.textContent = currentPhrase[i].toUpperCase();
                 li.className = `hide letter ${currentPhrase[i]}`;
             }
             
@@ -26,36 +26,21 @@ class Phrase {
 
     /**
      * Checks to see if the letter passed in matches any letters in the active phrase
-     * @param {Object}          Letter to check for match
+     * @param {String}          Letter to check for match
      * @returns {Boolean}       Value to return whether the letter matches or not
      */
     checkLetter(letter) {
-        const currentPhrase = this.phrase.content;
-
-        for(let i = 0; i < currentPhrase.length; i++) {
-            if(currentPhrase[i].toLowerCase() === letter.textContent) {
-                return true; // Match
-            }
-        }
+        return this.phrase.includes(letter);
     }
 
     /**
      * Reveals matched letter(s) in the phrase display
-     * @param {Object}      Matching letter to reveal
+     * @param {String}      Matching letter to reveal
      */
     showMatchedLetter(letter) {
-        const currentPhrase = this.phrase.content;
-
-        for(let i = 0; i < currentPhrase.length; i++) {
-            if(currentPhrase[i].toLowerCase() === letter.textContent) {
-                const phraseLetters = document.querySelectorAll('#phrase ul li');
-                
-                phraseLetters.forEach(li => {
-                    if(li.textContent.toLowerCase() === letter.textContent) {
-                        li.className = 'show';
-                    }
-                });
-            }
-        }
+        const phraseLetters = document.querySelectorAll(`#phrase ul li.${letter}`);
+        phraseLetters.forEach(li => {
+            li.className = 'show';
+        });
     }
 }
