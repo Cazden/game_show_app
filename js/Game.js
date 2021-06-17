@@ -1,17 +1,13 @@
 class Game {
     constructor() {
         this.missed = 0;
-        this.phrases = [{
-            content: 'Hello World' 
-        }, {
-            content: 'Cherry Pie'
-        }, {
-            content: 'Alley Cat'
-        }, {
-            content: 'Yellow Submarine'
-        }, {
-            content: 'Kamehameha'
-        }];
+        this.phrases = [
+            'hello world', 
+            'cherry pie', 
+            'alley cat',
+            'yellow submarine',
+            'kame hame ha'
+            ].map(text => new Phrase(text));
         this.activePhrase = null;
         this.hasStarted = false;
     }
@@ -21,7 +17,7 @@ class Game {
      */
     startGame() {
         document.querySelector('#overlay').style.display = 'none';
-        this.activePhrase = new Phrase(this.getRandomPhrase());
+        this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
         this.hasStarted = true;
         const hearts = document.querySelectorAll('.tries');
@@ -129,7 +125,7 @@ class Game {
                                  <br>Want to try again?</br>`;
         } else {
             overlay.className = 'win';
-            message.innerHTML = `<br>Congratulations, you guessed "${this.activePhrase.phrase.content}" correctly!</br>
+            message.innerHTML = `<br>Congratulations, you guessed "${this.activePhrase.phrase}" correctly!</br>
                                  <br>Want to play again?</br>`;
         }
 

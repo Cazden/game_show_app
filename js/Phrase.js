@@ -8,7 +8,7 @@ class Phrase {
      */
     addPhraseToDisplay() {
         const ul = document.querySelector('#phrase ul');
-        const currentPhrase = this.phrase.content;
+        const currentPhrase = this.phrase;
 
         for(let i = 0; i < currentPhrase.length; i++) {
             const li = document.createElement('li');
